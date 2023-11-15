@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Converter Celsius to Fahrenheit" />
+    <meta name="keywords" content="converter, calculator, celsius, fahrenheit" />
+    <meta name="author" content="Piotr Maliga" />
+    <title>Temperature Converter</title>
+    <main>Temperature Converter</main>
+
+    <link href="style.css" rel="stylesheet">
+
+    <link rel="preconcert" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+
+    <script src="script.js" defer></script>
+    <style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        font-family: "Roboto", sans-serif;
+        --color: rgb(14, 15, 6);
+        --color2: rgb(251, 249, 249);
+      
+      }
+      
+      body {
+      
+       background-image: url("../public/assets/tem3.jpg");
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        color: rgb(6, 6, 6);
+        font-size: 20px;
+        /* height: 1200px; */
+       width: 1400px;
+       background-color: rgba(0,0,0,0.9);
+
+      }
+      label {
+        font-size: 40px;
+        letter-spacing: 2px;
+        font-weight: bold;
+      }
+      input {
+        margin: 50px 0 10px;
+        padding: 7px;
+        font-size: 20px;
+      }
+      .result {
+        margin: 10px 0 50px;
+        font-size: 26px;
+        color: rgb(8, 8, 8);
+        letter-spacing: 1px;
+        height: 1em;
+        font-weight: bold;
+      }
+      
+      button {
+        width: 200px;
+        margin: 0 30px;
+        padding: 10px 30px;
+        background: none;
+        border: 2px solid var(--color);
+        border-radius: 5px;
+        color: var(--color2);
+        font-size: 25px;
+        transition: color 0.3s, box-shadow 0.3s;
+        box-shadow: 3px 3px 10px var(--color);
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      button:hover {
+        color: var(--color);
+        box-shadow: 3px 3px 10px var(--color2);
+      }
+      
+      
+      /*  Media queries */
+      @media screen and (max-width: 500px){
+        label{
+          font-size: 35px;
+        }
+      }
+      @media screen and (max-width: 1000px) {
+        button {
+          display: flex;
+          margin-bottom: 20px;
+          justify-content: center;
+        }
+      }
+      body{
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+</head>
+
+<body>
+    <header>
+        <label for="converter">Conversion of <span class="C">°C</span> to <span class="F">°F</span></label>
+    </header>
+
+    <div>
+        <input type="text" id="converter" placeholder="°C">
+    </div>
+
+    <p class="result"></p>
+
+    <div id="buttons">
+        <button class="convertButton">Convert</button>
+        <button class="resetButton">Reset</button>
+        <button class="changeButton">Change</button>
+    </div>
+
+
+                                  <!-- java script -->
+   
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script>
+      const converter = document.querySelector('#converter');
+const result = document.querySelector('.result');
+const convertButton = document.querySelector('.convertButton');
+const resetButton = document.querySelector('.resetButton');
+const changeButton = document.querySelector('.changeButton');
+const C = document.querySelector('.C')
+const F = document.querySelector('.F')
+
+const swap = () => {
+    if (C.innerHTML === '°C') {
+        C.innerHTML = '°F';
+        F.innerHTML = '°C';
+        converter.placeholder = "Temperature in °F";
+    }else {
+        F.innerHTML = '°F';
+        C.innerHTML = '°C';
+        converter.placeholder = "Temperature in °C";
+    };
+};
+
+const reset = () => {
+    converter.value = '';
+    result.innerHTML = '';
+}
+
+const convert = () => {
+    if (/^(-?)(\d+)(\.{1}\d+)?$/.test(converter.value)) {
+        result.style.color = "black"
+        if (C.innerHTML === '°C') {
+            let value = (converter.value * 1.8) + 32;
+            result.innerHTML = `${converter.value}°C is equal to ${value.toFixed(2)}°F`;
+        } else {
+            let value = (converter.value - 32) / 1.8;
+            result.innerHTML = `${converter.value}°F is equal to ${value.toFixed(2)}°C`;
+        }
+    } else if (converter.value == '') {
+        result.style.color = "#993300"
+        result.innerHTML = 'Enter some number';
+    } else {
+        result.style.color = "#993300"
+        result.innerHTML = 'Enter only numbers!!!';
+    }
+}
+
+changeButton.addEventListener('click', swap);
+resetButton.addEventListener('click', reset);
+convertButton.addEventListener('click', convert);
+
+    </script>
+</body>
+
+</html>
